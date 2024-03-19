@@ -48,7 +48,6 @@ namespace CineQuebec.Windows.DAL
         public List<Abonne> ReadAbonnes()
         {
             var abonnes = new List<Abonne>();
-
             try
             {
                 var collection = database.GetCollection<Abonne>("Abonnes");

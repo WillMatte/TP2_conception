@@ -24,5 +24,10 @@ namespace CineQuebec.Windows.View
         {
             InitializeComponent();
         }
+
+        private void btn_users_Click(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)Application.Current.MainWindow).UserListControl();
+        }
     }
 }

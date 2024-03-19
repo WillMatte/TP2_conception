@@ -11,6 +11,11 @@ namespace CineQuebec.Windows.DAL.Data
     {
         public ObjectId Id { get; set; }
         public string Username { get; set; }
-        public DateTime DateAdhesion { get; set; }
+        public DateTime DateJoined { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Username} - Membre depuis {DateJoined.Year}/{DateJoined.Month}/{DateJoined.Day}";
+        }
     }
 }
