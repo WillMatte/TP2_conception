@@ -24,7 +24,7 @@
         </Button>
 
         <Button Style="{StaticResource defautButton}" 
-        Grid.Column="1">
+        Grid.Column="1" Click="btn_films_Click">
             <StackPanel>
                 <Image Height="100"
                        Source="/Ressources/Images/projections.png" />

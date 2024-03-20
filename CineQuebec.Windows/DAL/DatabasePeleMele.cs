@@ -59,5 +59,20 @@ namespace CineQuebec.Windows.DAL
             }
             return abonnes;
         }
+
+        public List<Film> ReadFilms()
+        {
+            var films = new List<Film>();
+            try
+            {
+                var collection = database.GetCollection<Film>("Films");
+                films = collection.Aggregate().ToList();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Impossible d'obtenir la collection " + ex.Message, "Erreur");
+            }
+            return films;
+        }   
     }
 }

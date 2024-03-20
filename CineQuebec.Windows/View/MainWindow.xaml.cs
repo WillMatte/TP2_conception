@@ -33,5 +33,10 @@ namespace CineQuebec.Windows
         {
             mainContentControl.Content = new UserListControl();
         }
+
+        public void FilmListControl()
+        {
+            mainContentControl.Content = new FilmListControl();
+        }
     }
 }
