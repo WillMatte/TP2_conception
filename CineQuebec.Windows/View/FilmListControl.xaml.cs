@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using CineQuebec.Windows.DAL;
 using CineQuebec.Windows.DAL.Data;
+using WpfTutorialSamples.Dialogs;
 
 namespace CineQuebec.Windows.View
 {
@@ -44,6 +45,13 @@ namespace CineQuebec.Windows.View
                 itemFilm.Content = film;
                 lstFilms.Items.Add(itemFilm);
             }
+        }
+
+        private void btn_ajoutFilm_Click(object sender, RoutedEventArgs e)
+        {
+            InputDialogSample inputDialog = new InputDialogSample("Please enter your name:", "John Doe");
+            inputDialog.ShowDialog();
+
         }
     }
 }

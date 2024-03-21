@@ -7,7 +7,11 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Background="White">
-        <ListBox x:Name="lstFilms" Height="200" Width="400">
-        </ListBox>         
+        <StackPanel VerticalAlignment="Center">
+            <ListBox x:Name="lstFilms" Height="200" Width="400">
+            </ListBox>
+            <Button x:Name="btn_ajoutFilm" Width="150" Height="25" Content="Ajouter un film" Click="btn_ajoutFilm_Click"/>
+        </StackPanel>
     </Grid>
+
 </UserControl>
