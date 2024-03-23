@@ -49,9 +49,16 @@ namespace CineQuebec.Windows.View
 
         private void btn_ajoutFilm_Click(object sender, RoutedEventArgs e)
         {
-            InputDialogSample inputDialog = new InputDialogSample("Please enter your name:", "John Doe");
-            inputDialog.ShowDialog();
-
+            PopUpAjoutFilm inputDialog = new PopUpAjoutFilm();
+            if (inputDialog.ShowDialog() == true)
+            {
+                string result = inputDialog.Answer;
+                Film film = new Film();
+                film.Titre = result;
+                _db.CreateFilm(film);
+                lstFilms.Items.Clear();
+                GenerateUserList();
+            }
         }
     }
 }

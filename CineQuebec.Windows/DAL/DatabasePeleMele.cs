@@ -74,5 +74,18 @@ namespace CineQuebec.Windows.DAL
             }
             return films;
         }   
+
+        public void CreateFilm(Film film)
+        {
+            try
+            {
+                var collection = database.GetCollection<Film>("Films");
+                collection.InsertOne(film);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Impossible d'insérer le film " + ex.Message, "Erreur");
+            }
+        }
     }
 }
