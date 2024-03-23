@@ -11,7 +11,8 @@ namespace CineQuebec.Windows.DAL.Data
     {
         public ObjectId Id { get; set; }
         public string Titre { get; set; }
-
+        
+        public List<List<string>> Projections { get; set; }
         public override string ToString()
         {
             return $"{Titre}";

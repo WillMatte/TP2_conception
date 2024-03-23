@@ -25,20 +25,22 @@ namespace CineQuebec.Windows.View
     {
         private DatabasePeleMele _db;
         private List<Film> _films;
+
         public FilmListControl()
         {
             InitializeComponent();
-            GenerateUserList();
+            GenerateFilmList();
         }
 
-        private void GetAbonnes()
+        private void GetFilms()
         {
             _db = new DatabasePeleMele();
-            _films= _db.ReadFilms();
+            _films = _db.ReadFilms();
         }
-        private void GenerateUserList() 
+
+        private void GenerateFilmList()
         {
-            GetAbonnes();
+            GetFilms();
             foreach (Film film in _films)
             {
                 ListBoxItem itemFilm = new ListBoxItem();
@@ -55,9 +57,30 @@ namespace CineQuebec.Windows.View
                 string result = inputDialog.Answer;
                 Film film = new Film();
                 film.Titre = result;
+                film.Projections = new List<List<string>>();
                 _db.CreateFilm(film);
                 lstFilms.Items.Clear();
-                GenerateUserList();
+                GenerateFilmList();
+            }
+        }
+
+        private void LstFilms_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (lstFilms.SelectedItem != null)
+            {
+                var selectedItem = (ListBoxItem)lstFilms.SelectedItem;
+
+                ProgramProjectionFilm programProjectionFilm =
+                    new ProgramProjectionFilm(selectedItem.Content.ToString());
+                if (programProjectionFilm.ShowDialog() == true)
+                {
+                    List<string> result = programProjectionFilm.Answer;
+                    Film film = (Film)selectedItem.Content;
+                    film.Projections.Add(result);
+                    _db.UpdateFilm(film);
+                    lstFilms.Items.Clear();
+                    GenerateFilmList();
+                }
             }
         }
     }

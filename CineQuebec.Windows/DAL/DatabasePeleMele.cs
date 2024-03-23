@@ -87,5 +87,20 @@ namespace CineQuebec.Windows.DAL
                 Console.WriteLine("Impossible d'insérer le film " + ex.Message, "Erreur");
             }
         }
+
+        public void UpdateFilm(Film film)
+        {
+            try
+            {
+                var collection = database.GetCollection<Film>("Films");
+                var filter = Builders<Film>.Filter.Eq("Id", film.Id);
+                var update = Builders<Film>.Update.Set("Projections", film.Projections);
+                collection.UpdateOne(filter, update);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Impossible de mettre à jour le film " + ex.Message, "Erreur");
+            }
+        }
     }
 }
