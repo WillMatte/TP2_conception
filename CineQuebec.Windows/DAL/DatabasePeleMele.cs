@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MongoDB.Bson;
 
 namespace CineQuebec.Windows.DAL
 {
@@ -100,6 +101,21 @@ namespace CineQuebec.Windows.DAL
             catch (Exception ex)
             {
                 Console.WriteLine("Impossible de mettre à jour le film " + ex.Message, "Erreur");
+            }
+        }
+
+        public void DeleteFilmById(ObjectId id)
+        {
+            try
+            {
+                var collection = database.GetCollection<Film>("Films");
+                var filter = Builders<Film>.Filter.Eq("Id", id);
+                collection.FindOneAndDelete(filter);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Impossible de mettre à jour le film " + ex.Message, "Erreur");
+                throw;
             }
         }
     }
