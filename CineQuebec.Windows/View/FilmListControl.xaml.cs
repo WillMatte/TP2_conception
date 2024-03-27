@@ -26,6 +26,7 @@ namespace CineQuebec.Windows.View
         private DatabasePeleMele _db;
         private List<Film> _films;
         private int _selectedIndex = -1;
+        private bool _isProjectionList = false;
         
         public FilmListControl()
         {
@@ -49,10 +50,12 @@ namespace CineQuebec.Windows.View
             btnDelete.IsEnabled = false;
             btnAddProjection.IsEnabled = false;
         }
+        
         private void GenerateFilmList()
         {
             ClearInterface();
             GetFilms();
+            btn_changerListe.Content = "Afficher les projections";
             foreach (Film film in _films)
             {
                 ListBoxItem itemFilm = new ListBoxItem();
@@ -61,6 +64,22 @@ namespace CineQuebec.Windows.View
             }
         }
 
+        private void GenerateProjectionList()
+        {
+            lstFilms.Items.Clear();
+            btn_changerListe.Content = "Afficher les films";
+
+            foreach (Film film in _films)
+            {
+                for (int i = 0; i < film.Projections.Count; i++)
+                {
+                    ListBoxItem itemProjection = new ListBoxItem();
+                    string affichage = $"{film.Titre} - {film.Projections[i][0]} à {film.Projections[i][1]}";
+                    itemProjection.Content = affichage;
+                    lstFilms.Items.Add(affichage);     
+                }
+            }
+        }
         private void btn_ajoutFilm_Click(object sender, RoutedEventArgs e)
         {
             PopUpAjoutFilm inputDialog = new PopUpAjoutFilm();
@@ -131,6 +150,19 @@ namespace CineQuebec.Windows.View
             {
                 Console.WriteLine(ex);
                 throw;
+            }
+        }
+
+        private void Btn_changerListe_OnClick(object sender, RoutedEventArgs e)
+        {
+            _isProjectionList = !_isProjectionList;
+            if (!_isProjectionList)
+            {
+                GenerateFilmList();
+            }
+            else
+            {
+                GenerateProjectionList();
             }
         }
     }

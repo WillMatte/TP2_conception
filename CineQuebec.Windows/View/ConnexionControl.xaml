@@ -6,7 +6,6 @@
              xmlns:local="clr-namespace:CineQuebec.Windows.View"
              xmlns:rs="clr-namespace:CineQuebec.Windows.Ressources.i18n">
     <Grid Background="White" >
-
         <StackPanel VerticalAlignment="Center" >
             <Label Content="{x:Static rs:Resource.connexion_username}" 
                    Style="{StaticResource defautLabel}" />

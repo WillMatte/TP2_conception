@@ -118,5 +118,23 @@ namespace CineQuebec.Windows.DAL
                 throw;
             }
         }
+        public List<List<string>> GetAllProjections()
+        {
+            var projections = new List<List<string>>();
+            try
+            {
+                var collection = database.GetCollection<Film>("Films");
+                var films = collection.Aggregate().ToList();
+                foreach (var film in films)
+                {
+                    projections.AddRange(film.Projections);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Impossible d'obtenir les projections " + ex.Message, "Erreur");
+            }
+            return projections;
+        }  
     }
 }
