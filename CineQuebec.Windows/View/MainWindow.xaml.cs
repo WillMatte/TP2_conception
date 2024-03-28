@@ -10,6 +10,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using CineQuebec.Windows.DAL;
+
 namespace CineQuebec.Windows
 {
     /// <summary>
@@ -19,7 +20,6 @@ namespace CineQuebec.Windows
     {
         public MainWindow()
         {
-            
             InitializeComponent();
             mainContentControl.Content = new ConnexionControl();
         }
@@ -29,7 +29,7 @@ namespace CineQuebec.Windows
             mainContentControl.Content = new AdminHomeControl();
         }
 
-        public void UserListControl() 
+        public void UserListControl()
         {
             mainContentControl.Content = new UserListControl();
         }
