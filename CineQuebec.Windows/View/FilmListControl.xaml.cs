@@ -25,10 +25,14 @@ namespace CineQuebec.Windows.View
     {
         private DatabasePeleMele _db;
         private List<Film> _films;
-
+        private int _selectedIndex = -1;
+        private bool _isProjectionList = false;
+        
         public FilmListControl()
         {
             InitializeComponent();
+            btnDelete.IsEnabled = false;
+            btnAddProjection.IsEnabled = false;
             GenerateFilmList();
         }
 
@@ -38,9 +42,20 @@ namespace CineQuebec.Windows.View
             _films = _db.ReadFilms();
         }
 
+        private void ClearInterface()
+        {
+            lstFilms.Items.Clear();
+            lstFilms.SelectedIndex = -1;
+            _selectedIndex = lstFilms.SelectedIndex;
+            btnDelete.IsEnabled = false;
+            btnAddProjection.IsEnabled = false;
+        }
+        
         private void GenerateFilmList()
         {
+            ClearInterface();
             GetFilms();
+            btn_changerListe.Content = "Afficher les projections";
             foreach (Film film in _films)
             {
                 ListBoxItem itemFilm = new ListBoxItem();
@@ -49,6 +64,22 @@ namespace CineQuebec.Windows.View
             }
         }
 
+        private void GenerateProjectionList()
+        {
+            lstFilms.Items.Clear();
+            btn_changerListe.Content = "Afficher les films";
+
+            foreach (Film film in _films)
+            {
+                for (int i = 0; i < film.Projections.Count; i++)
+                {
+                    ListBoxItem itemProjection = new ListBoxItem();
+                    string affichage = $"{film.Titre} - {film.Projections[i][0]} à {film.Projections[i][1]}";
+                    itemProjection.Content = affichage;
+                    lstFilms.Items.Add(affichage);     
+                }
+            }
+        }
         private void btn_ajoutFilm_Click(object sender, RoutedEventArgs e)
         {
             PopUpAjoutFilm inputDialog = new PopUpAjoutFilm();
@@ -59,28 +90,79 @@ namespace CineQuebec.Windows.View
                 film.Titre = result;
                 film.Projections = new List<List<string>>();
                 _db.CreateFilm(film);
-                lstFilms.Items.Clear();
                 GenerateFilmList();
             }
         }
 
         private void LstFilms_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (lstFilms.SelectedItem != null)
+            _selectedIndex = lstFilms.SelectedIndex;
+            if (_selectedIndex != -1)
             {
-                var selectedItem = (ListBoxItem)lstFilms.SelectedItem;
+                btnDelete.IsEnabled = true;
+                btnAddProjection.IsEnabled = true;
+            }
+        }
 
-                ProgramProjectionFilm programProjectionFilm =
-                    new ProgramProjectionFilm(selectedItem.Content.ToString());
+        private Film? GetSelectedFilm()
+        {
+            if (_selectedIndex == -1)
+                return null;
+            ListBoxItem selectedItem = (ListBoxItem)lstFilms.SelectedItem;
+            Film selectedFilm = (Film)selectedItem.Content;
+            return selectedFilm;
+        }
+
+        private void BtnDelete_OnClick(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Film? film = GetSelectedFilm();
+                if (film == null)
+                    return;
+                _db.DeleteFilmById(film.Id);
+                GenerateFilmList();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                throw;
+            }
+        }
+
+        private void BtnAddProjection_OnClick(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Film? film = GetSelectedFilm();
+                if (film == null)
+                    return;
+                ProgramProjectionFilm programProjectionFilm = new ProgramProjectionFilm(film.Titre);
                 if (programProjectionFilm.ShowDialog() == true)
                 {
                     List<string> result = programProjectionFilm.Answer;
-                    Film film = (Film)selectedItem.Content;
                     film.Projections.Add(result);
                     _db.UpdateFilm(film);
-                    lstFilms.Items.Clear();
                     GenerateFilmList();
                 }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                throw;
+            }
+        }
+
+        private void Btn_changerListe_OnClick(object sender, RoutedEventArgs e)
+        {
+            _isProjectionList = !_isProjectionList;
+            if (!_isProjectionList)
+            {
+                GenerateFilmList();
+            }
+            else
+            {
+                GenerateProjectionList();
             }
         }
     }
