@@ -27,7 +27,7 @@ namespace CineQuebec.Windows.View
         private List<Film> _films;
         private int _selectedIndex = -1;
         private bool _isProjectionList = false;
-        
+
         public FilmListControl()
         {
             InitializeComponent();
@@ -50,7 +50,7 @@ namespace CineQuebec.Windows.View
             btnDelete.IsEnabled = false;
             btnAddProjection.IsEnabled = false;
         }
-        
+
         private void GenerateFilmList()
         {
             ClearInterface();
@@ -69,6 +69,7 @@ namespace CineQuebec.Windows.View
             lstFilms.Items.Clear();
             btn_changerListe.Content = "Afficher les films";
 
+            //Meilleur essaie pour afficher les projections
             foreach (Film film in _films)
             {
                 for (int i = 0; i < film.Projections.Count; i++)
@@ -76,21 +77,30 @@ namespace CineQuebec.Windows.View
                     ListBoxItem itemProjection = new ListBoxItem();
                     string affichage = $"{film.Titre} - {film.Projections[i][0]} à {film.Projections[i][1]}";
                     itemProjection.Content = affichage;
-                    lstFilms.Items.Add(affichage);     
+                    lstFilms.Items.Add(affichage);
                 }
             }
         }
+
         private void btn_ajoutFilm_Click(object sender, RoutedEventArgs e)
         {
-            PopUpAjoutFilm inputDialog = new PopUpAjoutFilm();
-            if (inputDialog.ShowDialog() == true)
+            try
             {
-                string result = inputDialog.Answer;
-                Film film = new Film();
-                film.Titre = result;
-                film.Projections = new List<List<string>>();
-                _db.CreateFilm(film);
-                GenerateFilmList();
+                PopUpAjoutFilm inputDialog = new PopUpAjoutFilm();
+                if (inputDialog.ShowDialog() == true)
+                {
+                    string result = inputDialog.Answer;
+                    Film film = new Film();
+                    film.Titre = result;
+                    film.Projections = new List<List<string>>();
+                    _db.CreateFilm(film);
+                    GenerateFilmList();
+                }
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+                throw;
             }
         }
 
@@ -155,14 +165,18 @@ namespace CineQuebec.Windows.View
 
         private void Btn_changerListe_OnClick(object sender, RoutedEventArgs e)
         {
-            _isProjectionList = !_isProjectionList;
-            if (!_isProjectionList)
+            try
             {
-                GenerateFilmList();
+                _isProjectionList = !_isProjectionList;
+                if (!_isProjectionList)
+                    GenerateFilmList();
+                else
+                    GenerateProjectionList();
             }
-            else
+            catch (Exception exception)
             {
-                GenerateProjectionList();
+                Console.WriteLine(exception);
+                throw;
             }
         }
     }
