@@ -9,9 +9,34 @@ namespace CineQuebec.Windows.DAL.Data
 {
     public class Abonne
     {
-        public ObjectId Id { get; set; }
-        public string Username { get; set; }
-        public DateTime DateJoined { get; set; }
+        private ObjectId _id;
+        private string _username;
+        private DateTime _dateJoined;
+
+        public ObjectId Id
+        {
+            get { return _id; }
+            set { _id = value;}
+        }
+
+        public string Username
+        {
+            get { return _username; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentNullException("Le nom d'utilisateur ne peut pas être vide.");
+                }
+                _username = value;
+            }
+        }
+
+        public DateTime DateJoined
+        {
+            get { return _dateJoined; }
+            set { _dateJoined = value; }
+        }
 
         public override string ToString()
         {

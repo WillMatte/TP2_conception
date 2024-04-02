@@ -9,10 +9,38 @@ namespace CineQuebec.Windows.DAL.Data
 {
     public class Film
     {
-        public ObjectId Id { get; set; }
-        public string Titre { get; set; }
+        private ObjectId _id;
+        private string _titre;
+        private List<List<string>> _projections;
+
+
+        public ObjectId Id
+        {
+            get { return _id; }
+            set { _id = value; }
+        }
         
-        public List<List<string>> Projections { get; set; }
+        public string Titre
+        {
+            get
+            {
+                return _titre;
+            }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentNullException("Le titre ne peut pas être vide.");
+                }
+                _titre = value;   
+            }
+        }
+
+        public List<List<string>> Projections
+        {
+            get { return _projections; }
+            set { _projections = value; }
+        }
         public override string ToString()
         {
             return $"{Titre}";
