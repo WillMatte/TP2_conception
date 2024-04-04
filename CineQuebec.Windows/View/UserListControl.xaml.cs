@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using CineQuebec.Windows.DAL;
 using CineQuebec.Windows.DAL.Data;
+using CineQuebec.Windows.DAL.Interfaces;
 
 namespace CineQuebec.Windows.View
 {
@@ -24,15 +25,15 @@ namespace CineQuebec.Windows.View
     {
         private DatabasePeleMele _db;
         private List<Abonne> _abonnes;
-        public UserListControl()
+        public UserListControl(IDatabaseProvider databaseProvider)
         {
+            _db = databaseProvider.GetDatabasePeleMele();
             InitializeComponent();
             GenerateUserList();
         }
 
         private void GetAbonnes()
         {
-            _db = new DatabasePeleMele();
             _abonnes = _db.ReadAbonnes();
         }
         private void GenerateUserList() 

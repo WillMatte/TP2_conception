@@ -5,53 +5,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CineQuebec.Windows.DAL.Interfaces;
+using CineQuebec.Windows.DAL.Providers;
 using MongoDB.Bson;
 
 namespace CineQuebec.Windows.DAL
 {
     public class DatabasePeleMele
     {
-        private IMongoClient mongoDBClient;
-        private IMongoDatabase database;
+        private readonly DatabaseProvider _databaseProvider;
+        private readonly IMongoClient _mongoDBClient;
+        private readonly IMongoDatabase _database;
 
-        public DatabasePeleMele(IMongoClient client = null)
+        public DatabasePeleMele(DatabaseProvider databaseProvider)
         {
-            mongoDBClient = client ?? OuvrirConnexion();
-            database = ConnectDatabase();
+            _databaseProvider = databaseProvider;
+            _mongoDBClient = _databaseProvider.GetClient();
+            _database = _databaseProvider.GetDatabase(_mongoDBClient);
         }
-        private IMongoClient OuvrirConnexion()
-        {
-            MongoClient dbClient = null;
-            try
-            {
-                dbClient = new MongoClient("mongodb://localhost:27017/");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Impossible de se connecter à la base de données " + ex.Message, "Erreur");
-            }
-            return dbClient;
-        }
-
-        private IMongoDatabase ConnectDatabase()
-        {
-            IMongoDatabase db = null;
-            try
-            {
-                db = mongoDBClient.GetDatabase("TP2DB");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Impossible de se connecter à la base de données " + ex.Message, "Erreur");
-            }
-            return db;
-        }
-        public List<Abonne> ReadAbonnes()
+        
+        virtual public List<Abonne> ReadAbonnes()
         {
             var abonnes = new List<Abonne>();
             try
             {
-                var collection = database.GetCollection<Abonne>("Abonnes");
+                var collection = _database.GetCollection<Abonne>("Abonnes");
                 abonnes = collection.Aggregate().ToList();
             }
             catch (Exception ex)
@@ -61,12 +39,12 @@ namespace CineQuebec.Windows.DAL
             return abonnes;
         }
 
-        public List<Film> ReadFilms()
+        virtual public List<Film> ReadFilms()
         {
             var films = new List<Film>();
             try
             {
-                var collection = database.GetCollection<Film>("Films");
+                var collection = _database.GetCollection<Film>("Films");
                 films = collection.Aggregate().ToList();
             }
             catch (Exception ex)
@@ -76,11 +54,11 @@ namespace CineQuebec.Windows.DAL
             return films;
         }   
 
-        public void CreateFilm(Film film)
+        virtual public void CreateFilm(Film film)
         {
             try
             {
-                var collection = database.GetCollection<Film>("Films");
+                var collection = _database.GetCollection<Film>("Films");
                 collection.InsertOne(film);
             }
             catch (Exception ex)
@@ -89,11 +67,11 @@ namespace CineQuebec.Windows.DAL
             }
         }
 
-        public void UpdateFilm(Film film)
+        virtual public void UpdateFilm(Film film)
         {
             try
             {
-                var collection = database.GetCollection<Film>("Films");
+                var collection = _database.GetCollection<Film>("Films");
                 var filter = Builders<Film>.Filter.Eq("Id", film.Id);
                 var update = Builders<Film>.Update.Set("Projections", film.Projections);
                 collection.UpdateOne(filter, update);
@@ -104,11 +82,11 @@ namespace CineQuebec.Windows.DAL
             }
         }
 
-        public void DeleteFilmById(ObjectId id)
+        virtual public void DeleteFilmById(ObjectId id)
         {
             try
             {
-                var collection = database.GetCollection<Film>("Films");
+                var collection = _database.GetCollection<Film>("Films");
                 var filter = Builders<Film>.Filter.Eq("Id", id);
                 collection.FindOneAndDelete(filter);
             }
@@ -118,12 +96,12 @@ namespace CineQuebec.Windows.DAL
                 throw;
             }
         }
-        public List<List<string>> GetAllProjections()
+        virtual public List<List<string>> GetAllProjections()
         {
             var projections = new List<List<string>>();
             try
             {
-                var collection = database.GetCollection<Film>("Films");
+                var collection = _database.GetCollection<Film>("Films");
                 var films = collection.Aggregate().ToList();
                 foreach (var film in films)
                 {

@@ -12,8 +12,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Autofac;
+using Autofac.Core;
 using CineQuebec.Windows.DAL;
 using CineQuebec.Windows.DAL.Data;
+using CineQuebec.Windows.DAL.Interfaces;
+using MongoDB.Driver;
 using WpfTutorialSamples.Dialogs;
 
 namespace CineQuebec.Windows.View
@@ -23,13 +27,17 @@ namespace CineQuebec.Windows.View
     /// </summary>
     public partial class FilmListControl : UserControl
     {
+        private static ContainerBuilder containerBuilder = new ContainerBuilder();
+        private IContainer container = containerBuilder.Build();
+        
         private DatabasePeleMele _db;
         private List<Film> _films;
         private int _selectedIndex = -1;
         private bool _isProjectionList = false;
 
-        public FilmListControl()
+        public FilmListControl(IDatabaseProvider databaseProvider)
         {
+            _db = databaseProvider.GetDatabasePeleMele(); 
             InitializeComponent();
             btnDelete.IsEnabled = false;
             btnAddProjection.IsEnabled = false;
@@ -38,7 +46,6 @@ namespace CineQuebec.Windows.View
 
         private void GetFilms()
         {
-            _db = new DatabasePeleMele();
             _films = _db.ReadFilms();
         }
 

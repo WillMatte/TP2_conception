@@ -10,6 +10,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using CineQuebec.Windows.DAL;
+using CineQuebec.Windows.DAL.Interfaces;
+using CineQuebec.Windows.DAL.Providers;
 
 namespace CineQuebec.Windows
 {
@@ -18,6 +20,7 @@ namespace CineQuebec.Windows
     /// </summary>
     public partial class MainWindow : Window
     {
+        private IDatabaseProvider  _databaseProvider= new DatabaseProvider();
         public MainWindow()
         {
             InitializeComponent();
@@ -31,12 +34,12 @@ namespace CineQuebec.Windows
 
         public void UserListControl()
         {
-            mainContentControl.Content = new UserListControl();
+            mainContentControl.Content = new UserListControl(_databaseProvider);
         }
 
         public void FilmListControl()
         {
-            mainContentControl.Content = new FilmListControl();
+            mainContentControl.Content = new FilmListControl(_databaseProvider);
         }
     }
 }
