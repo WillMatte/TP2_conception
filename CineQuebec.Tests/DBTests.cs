@@ -7,13 +7,13 @@ using CineQuebec.Windows.DAL;
 using CineQuebec.Windows.DAL.Data;
 using MongoDB.Bson;
 
-public class DatabasePeleMeleTests
+public class DatabaseFilmsTests
 {
     [Fact]
     public void UpdateFilm_UpdatesAFilm()
     {
         // Arrange
-        Mock<DatabasePeleMele> dbMock = new Mock<DatabasePeleMele>();
+        Mock<DatabaseFilms> dbMock = new Mock<DatabaseFilms>();
         var film = new Film
         {
             Id = ObjectId.GenerateNewId(),

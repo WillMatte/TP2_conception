@@ -30,14 +30,14 @@ namespace CineQuebec.Windows.View
         private static ContainerBuilder containerBuilder = new ContainerBuilder();
         private IContainer container = containerBuilder.Build();
         
-        private DatabasePeleMele _db;
+        private DatabaseFilms _db;
         private List<Film> _films;
         private int _selectedIndex = -1;
         private bool _isProjectionList = false;
 
-        public FilmListControl(IDatabaseProvider databaseProvider)
+        public FilmListControl()
         {
-            _db = databaseProvider.GetDatabasePeleMele(); 
+            _db = new DatabaseFilms();
             InitializeComponent();
             btnDelete.IsEnabled = false;
             btnAddProjection.IsEnabled = false;

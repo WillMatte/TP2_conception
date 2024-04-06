@@ -6,39 +6,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CineQuebec.Windows.DAL.Interfaces;
-using CineQuebec.Windows.DAL.Providers;
 using MongoDB.Bson;
 
 namespace CineQuebec.Windows.DAL
 {
-    public class DatabasePeleMele
+    public class DatabaseFilms : IDatabaseFilms
     {
-        private readonly DatabaseProvider _databaseProvider;
         private readonly IMongoClient _mongoDBClient;
         private readonly IMongoDatabase _database;
 
-        public DatabasePeleMele(DatabaseProvider databaseProvider)
+        public DatabaseFilms()
         {
-            _databaseProvider = databaseProvider;
-            _mongoDBClient = _databaseProvider.GetClient();
-            _database = _databaseProvider.GetDatabase(_mongoDBClient);
+            _mongoDBClient = GetClient();
+            _database = GetDatabase(_mongoDBClient);
         }
         
-        virtual public List<Abonne> ReadAbonnes()
+        
+        public IMongoDatabase GetDatabase(IMongoClient client)
         {
-            var abonnes = new List<Abonne>();
-            try
-            {
-                var collection = _database.GetCollection<Abonne>("Abonnes");
-                abonnes = collection.Aggregate().ToList();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Impossible d'obtenir la collection " + ex.Message, "Erreur");
-            }
-            return abonnes;
+            return client.GetDatabase("TP2DB");
         }
-
+        public IMongoClient GetClient()
+        {
+            return new MongoClient("mongodb://localhost:27017/");
+        }
         virtual public List<Film> ReadFilms()
         {
             var films = new List<Film>();

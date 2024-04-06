@@ -6,5 +6,5 @@ public interface IDatabaseProvider
 {
     IMongoDatabase GetDatabase(IMongoClient client);
     IMongoClient GetClient();
-    DatabasePeleMele GetDatabasePeleMele();
+    DatabaseFilms GetDatabasePeleMele();
 }

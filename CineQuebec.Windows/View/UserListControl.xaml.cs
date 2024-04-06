@@ -23,11 +23,11 @@ namespace CineQuebec.Windows.View
     /// </summary>
     public partial class UserListControl : UserControl
     {
-        private DatabasePeleMele _db;
+        private DatabaseAbonnes _db;
         private List<Abonne> _abonnes;
-        public UserListControl(IDatabaseProvider databaseProvider)
+        public UserListControl()
         {
-            _db = databaseProvider.GetDatabasePeleMele();
+            _db = new DatabaseAbonnes();
             InitializeComponent();
             GenerateUserList();
         }
