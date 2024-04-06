@@ -23,6 +23,7 @@ public class DatabaseAbonnesTests
         var result = dbMock.Object.ReadAbonnes();
         
         // Assert
-        Assert.Equal(abonnes, result);
+        Assert.True(abonnes.SequenceEqual(result));
+
     }
 }
