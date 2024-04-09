@@ -40,7 +40,7 @@ namespace CineQuebec.Windows.DAL
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Impossible d'obtenir la collection " + ex.Message, "Erreur");
+                throw new Exception(ex.Message);
             }
             return films;
         }   
@@ -52,9 +52,13 @@ namespace CineQuebec.Windows.DAL
                 var collection = _database.GetCollection<Film>("Films");
                 collection.InsertOne(film);
             }
+            catch (ArgumentNullException ex)
+            {
+                throw new ArgumentNullException(ex.Message);
+            }
             catch (Exception ex)
             {
-                Console.WriteLine("Impossible d'insérer le film " + ex.Message, "Erreur");
+                throw new Exception(ex.Message);
             }
         }
 
@@ -67,9 +71,13 @@ namespace CineQuebec.Windows.DAL
                 var update = Builders<Film>.Update.Set("Projections", film.Projections);
                 collection.UpdateOne(filter, update);
             }
+            catch (ArgumentNullException ex)
+            {
+                throw new ArgumentNullException(ex.Message);
+            }
             catch (Exception ex)
             {
-                Console.WriteLine("Impossible de mettre à jour le film " + ex.Message, "Erreur");
+                throw new Exception(ex.Message);
             }
         }
 
@@ -81,11 +89,15 @@ namespace CineQuebec.Windows.DAL
                 var filter = Builders<Film>.Filter.Eq("Id", id);
                 collection.FindOneAndDelete(filter);
             }
+            catch (ArgumentNullException ex)
+            {
+                throw new ArgumentNullException(ex.Message);
+            }
             catch (Exception ex)
             {
-                Console.WriteLine("Impossible de mettre à jour le film " + ex.Message, "Erreur");
-                throw;
+                throw new Exception(ex.Message);
             }
+            
         }
         virtual public List<List<string>> GetAllProjections()
         {
@@ -101,7 +113,7 @@ namespace CineQuebec.Windows.DAL
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Impossible d'obtenir les projections " + ex.Message, "Erreur");
+                throw new Exception(ex.Message);
             }
             return projections;
         }  
