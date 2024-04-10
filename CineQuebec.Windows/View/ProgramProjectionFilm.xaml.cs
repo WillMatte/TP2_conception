@@ -14,10 +14,10 @@ public partial class ProgramProjectionFilm : Window
     }
 
     private void BtnDialogOk_OnClick(object sender, RoutedEventArgs e)
-    {
-        this._projections.Add(txtDate.Text);
-        this._projections.Add(txtHeure.Text);
-        this.DialogResult = true;
+    { 
+        _projections.Add(txtDate.Text);
+        _projections.Add(txtHeure.Text);
+        DialogResult = true;
     }
 
     public List<string> Answer

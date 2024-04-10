@@ -22,7 +22,7 @@ public class FilmTests
     }
     
     [Fact]
-    public void Titre_ValeurVide_LanceNullExeption()
+    public void Film_ThrowsArgumentNullException_WhenTitreIsNull()
     {
         // Arrange
         var film = new Film();

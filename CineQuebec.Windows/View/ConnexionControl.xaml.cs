@@ -16,9 +16,6 @@ using System.Windows.Shapes;
 
 namespace CineQuebec.Windows.View
 {
-    /// <summary>
-    /// Logique d'interaction pour ConnexionControl.xaml
-    /// </summary>
     public partial class ConnexionControl : UserControl
     {
         public ConnexionControl()

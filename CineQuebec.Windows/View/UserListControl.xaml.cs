@@ -18,13 +18,11 @@ using CineQuebec.Windows.DAL.Interfaces;
 
 namespace CineQuebec.Windows.View
 {
-    /// <summary>
-    /// Interaction logic for UserListControl.xaml
-    /// </summary>
     public partial class UserListControl : UserControl
     {
         private DatabaseAbonnes _db;
         private List<Abonne> _abonnes;
+        
         public UserListControl()
         {
             _db = new DatabaseAbonnes();

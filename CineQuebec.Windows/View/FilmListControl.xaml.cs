@@ -27,9 +27,6 @@ namespace CineQuebec.Windows.View
     /// </summary>
     public partial class FilmListControl : UserControl
     {
-        private static ContainerBuilder containerBuilder = new ContainerBuilder();
-        private IContainer container = containerBuilder.Build();
-        
         private DatabaseFilms _db;
         private List<Film> _films;
         private int _selectedIndex = -1;
@@ -76,7 +73,7 @@ namespace CineQuebec.Windows.View
             lstFilms.Items.Clear();
             btn_changerListe.Content = "Afficher les films";
 
-            //Meilleur essaie pour afficher les projections
+            //Meilleur essai pour afficher les projections
             foreach (Film film in _films)
             {
                 for (int i = 0; i < film.Projections.Count; i++)

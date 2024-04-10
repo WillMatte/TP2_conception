@@ -15,7 +15,6 @@ public class DatabaseFilmsTests
     {
         // Arrange
         List<Film> films = new List<Film>() { new Film(), new Film() };
-
         Mock<IDatabaseFilms> dbMock = new Mock<IDatabaseFilms>();
         dbMock.Setup(x => x.ReadFilms()).Returns(films);
 
