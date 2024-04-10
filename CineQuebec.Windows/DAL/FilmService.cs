@@ -10,26 +10,28 @@ using MongoDB.Bson;
 
 namespace CineQuebec.Windows.DAL
 {
-    public class DatabaseFilms : IDatabaseFilms
+    public class FilmService : IDatabaseFilms
     {
         private readonly IMongoClient _mongoDBClient;
         private readonly IMongoDatabase _database;
 
-        public DatabaseFilms()
+        public FilmService()
         {
             _mongoDBClient = GetClient();
             _database = GetDatabase(_mongoDBClient);
         }
-        
-        
+
+
         public IMongoDatabase GetDatabase(IMongoClient client)
         {
             return client.GetDatabase("TP2DB");
         }
+
         public IMongoClient GetClient()
         {
             return new MongoClient("mongodb://localhost:27017/");
         }
+
         virtual public List<Film> ReadFilms()
         {
             var films = new List<Film>();
@@ -42,8 +44,9 @@ namespace CineQuebec.Windows.DAL
             {
                 throw new Exception(ex.Message);
             }
+
             return films;
-        }   
+        }
 
         virtual public void CreateFilm(Film film)
         {
@@ -97,8 +100,8 @@ namespace CineQuebec.Windows.DAL
             {
                 throw new Exception(ex.Message);
             }
-            
         }
+
         virtual public List<List<string>> GetAllProjections()
         {
             var projections = new List<List<string>>();
@@ -115,7 +118,8 @@ namespace CineQuebec.Windows.DAL
             {
                 throw new Exception(ex.Message);
             }
+
             return projections;
-        }  
+        }
     }
 }

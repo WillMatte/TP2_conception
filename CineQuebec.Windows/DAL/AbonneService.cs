@@ -11,25 +11,27 @@ using MongoDB.Bson;
 
 namespace CineQuebec.Windows.DAL;
 
-public class DatabaseAbonnes : IDatabaseAbonnes
+public class AbonneService : IDatabaseAbonnes
 {
     private readonly IMongoClient _mongoDBClient;
     private readonly IMongoDatabase _database;
 
-    public DatabaseAbonnes()
+    public AbonneService()
     {
         _mongoDBClient = GetClient();
         _database = GetDatabase(_mongoDBClient);
     }
+
     public IMongoDatabase GetDatabase(IMongoClient client)
     {
         return client.GetDatabase("TP2DB");
     }
-    
+
     public IMongoClient GetClient()
     {
         return new MongoClient("mongodb://localhost:27017/");
     }
+
     public List<Abonne> ReadAbonnes()
     {
         var abonnes = new List<Abonne>();
@@ -42,6 +44,7 @@ public class DatabaseAbonnes : IDatabaseAbonnes
         {
             Console.WriteLine("Impossible d'obtenir la collection " + ex.Message, "Erreur");
         }
+
         return abonnes;
     }
 }

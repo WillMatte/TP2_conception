@@ -8,7 +8,7 @@ using CineQuebec.Windows.DAL.Data;
 using CineQuebec.Windows.DAL.Interfaces;
 using MongoDB.Bson;
 
-public class DatabaseFilmsTests
+public class FilmServiceTests
 {
     [Fact]
     public void ReadFilms_RetourneUneListeFilms()

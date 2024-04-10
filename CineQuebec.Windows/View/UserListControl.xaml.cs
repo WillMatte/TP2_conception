@@ -20,12 +20,12 @@ namespace CineQuebec.Windows.View
 {
     public partial class UserListControl : UserControl
     {
-        private DatabaseAbonnes _db;
+        private AbonneService _db;
         private List<Abonne> _abonnes;
-        
+
         public UserListControl()
         {
-            _db = new DatabaseAbonnes();
+            _db = new AbonneService();
             InitializeComponent();
             GenerateUserList();
         }
@@ -34,7 +34,8 @@ namespace CineQuebec.Windows.View
         {
             _abonnes = _db.ReadAbonnes();
         }
-        private void GenerateUserList() 
+
+        private void GenerateUserList()
         {
             GetAbonnes();
             foreach (Abonne abonne in _abonnes)

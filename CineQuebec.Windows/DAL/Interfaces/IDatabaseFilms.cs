@@ -8,5 +8,5 @@ public interface IDatabaseFilms
     List<Film> ReadFilms();
     void CreateFilm(Film film);
     void UpdateFilm(Film film);
-    void DeleteFilmById(ObjectId film);   
+    void DeleteFilmById(ObjectId film);
 }

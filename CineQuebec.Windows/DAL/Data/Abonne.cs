@@ -16,7 +16,7 @@ namespace CineQuebec.Windows.DAL.Data
         public ObjectId Id
         {
             get { return _id; }
-            set { _id = value;}
+            set { _id = value; }
         }
 
         public string Username
@@ -28,6 +28,7 @@ namespace CineQuebec.Windows.DAL.Data
                 {
                     throw new ArgumentNullException("Le nom d'utilisateur ne peut pas être vide.");
                 }
+
                 _username = value;
             }
         }

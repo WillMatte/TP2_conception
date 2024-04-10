@@ -19,20 +19,18 @@ namespace CineQuebec.Windows.DAL.Data
             get { return _id; }
             set { _id = value; }
         }
-        
+
         public string Titre
         {
-            get
-            {
-                return _titre;
-            }
+            get { return _titre; }
             set
             {
                 if (string.IsNullOrWhiteSpace(value))
                 {
                     throw new ArgumentNullException("Le titre ne peut pas être vide.");
                 }
-                _titre = value;   
+
+                _titre = value;
             }
         }
 
@@ -41,6 +39,7 @@ namespace CineQuebec.Windows.DAL.Data
             get { return _projections; }
             set { _projections = value; }
         }
+
         public override string ToString()
         {
             return $"{Titre}";

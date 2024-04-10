@@ -22,19 +22,16 @@ using WpfTutorialSamples.Dialogs;
 
 namespace CineQuebec.Windows.View
 {
-    /// <summary>
-    /// Interaction logic for UserListControl.xaml
-    /// </summary>
     public partial class FilmListControl : UserControl
     {
-        private DatabaseFilms _db;
+        private FilmService _db;
         private List<Film> _films;
         private int _selectedIndex = -1;
         private bool _isProjectionList = false;
 
         public FilmListControl()
         {
-            _db = new DatabaseFilms();
+            _db = new FilmService();
             InitializeComponent();
             btnDelete.IsEnabled = false;
             btnAddProjection.IsEnabled = false;

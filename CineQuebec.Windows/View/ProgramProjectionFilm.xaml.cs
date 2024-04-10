@@ -14,7 +14,7 @@ public partial class ProgramProjectionFilm : Window
     }
 
     private void BtnDialogOk_OnClick(object sender, RoutedEventArgs e)
-    { 
+    {
         _projections.Add(txtDate.Text);
         _projections.Add(txtHeure.Text);
         DialogResult = true;
