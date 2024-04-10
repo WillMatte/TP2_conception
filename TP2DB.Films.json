@@ -1,0 +1,33 @@
+[{
+  "_id": {
+    "$oid": "661682a2c8393335e341f7dc"
+  },
+  "Titre": "SpiderMan",
+  "Projections": []
+},
+{
+  "_id": {
+    "$oid": "661682b0c8393335e341f7dd"
+  },
+  "Titre": "SuperMan",
+  "Projections": []
+},
+{
+  "_id": {
+    "$oid": "661682b5c8393335e341f7de"
+  },
+  "Titre": "BatMan",
+  "Projections": []
+},
+{
+  "_id": {
+    "$oid": "661682b9c8393335e341f7df"
+  },
+  "Titre": "IronMan",
+  "Projections": [
+    [
+      "9 avril 2024",
+      "15h30"
+    ]
+  ]
+}]
