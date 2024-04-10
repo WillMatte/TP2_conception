@@ -7,7 +7,18 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Background="White">
-        <ListBox x:Name="lstUsers" Height="200" Width="400">
-        </ListBox>         
+        <StackPanel VerticalAlignment="Center">
+            <Button x:Name="btn_retour" 
+         Content="Retour"
+         Width="75"
+         Height="25"
+         Margin="0, 20"
+         HorizontalAlignment="Left" 
+         Click="btn_retour_Click"
+         VerticalAlignment="Top"
+         />
+            <ListBox x:Name="lstUsers" Height="200" Width="400">
+            </ListBox>
+        </StackPanel>
     </Grid>
 </UserControl>

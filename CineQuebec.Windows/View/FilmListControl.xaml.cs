@@ -180,5 +180,10 @@ namespace CineQuebec.Windows.View
                 throw;
             }
         }
+
+        private void btn_retour_Click(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)Application.Current.MainWindow).AdminHomeControl();
+        }
     }
 }

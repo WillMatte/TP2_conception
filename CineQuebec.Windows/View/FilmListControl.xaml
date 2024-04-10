@@ -8,6 +8,12 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Background="White">
         <StackPanel VerticalAlignment="Center">
+            <Button x:Name="btn_retour" 
+                    Content="Retour"
+                    Width="75"
+                    Height="25"
+                    HorizontalAlignment="Left" Click="btn_retour_Click"
+                    />
             <Button x:Name="btn_changerListe"
                     Margin="0, 0px, 0 , 10"
                     Width="150"
@@ -34,6 +40,7 @@
                         Content="Ajouter une projection"
                         Margin="10px, 0,0,0" Click="BtnAddProjection_OnClick" />
             </StackPanel>
+            
         </StackPanel>
     </Grid>
 
