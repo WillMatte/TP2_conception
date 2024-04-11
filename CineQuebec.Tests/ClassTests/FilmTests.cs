@@ -20,7 +20,7 @@ public class FilmTests
         // Assert
         Assert.Equal("Le Matrix", resultat);
     }
-    
+
     [Fact]
     public void Film_ThrowsArgumentNullException_WhenTitreIsNull()
     {
@@ -30,5 +30,4 @@ public class FilmTests
         // Act & Assert
         Assert.Throws<ArgumentNullException>(() => film.Titre = "");
     }
-
 }

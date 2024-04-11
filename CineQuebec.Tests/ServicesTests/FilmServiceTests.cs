@@ -44,7 +44,7 @@ public class FilmServiceTests
         // Assert
         dbMock.Verify(x => x.CreateFilm(newFilm), Times.Once);
     }
-    
+
     [Fact]
     public void CreateFilm_ThrowsArgumentNullException_WhenFilmIsNull()
     {
@@ -76,7 +76,7 @@ public class FilmServiceTests
         // Assert
         dbMock.Verify(x => x.UpdateFilm(updatedFilm), Times.Once);
     }
-    
+
     [Fact]
     public void UpdateFilm_ThrowsArgumentNullException_WhenFilmIsNull()
     {
@@ -87,7 +87,7 @@ public class FilmServiceTests
         // Act and Assert
         Assert.Throws<ArgumentNullException>(() => dbMock.Object.UpdateFilm(null));
     }
-    
+
     [Fact]
     public void DeleteFilmById_DeletesAFilm()
     {
@@ -99,14 +99,14 @@ public class FilmServiceTests
         };
         Mock<IDatabaseFilms> dbMock = new Mock<IDatabaseFilms>();
         dbMock.Setup(x => x.DeleteFilmById(It.IsAny<ObjectId>())).Verifiable();
-        
+
         // Act
         dbMock.Object.DeleteFilmById(film.Id);
 
         // Assert
         dbMock.Verify(x => x.DeleteFilmById(film.Id), Times.Once);
     }
-    
+
     [Fact]
     public void DeleteFilmById_ThrowsArgumentNullException_WhenIdIsNull()
     {
@@ -118,5 +118,4 @@ public class FilmServiceTests
         // Act and Assert
         Assert.Throws<ArgumentNullException>(() => dbMock.Object.DeleteFilmById(filmId));
     }
-    
 }

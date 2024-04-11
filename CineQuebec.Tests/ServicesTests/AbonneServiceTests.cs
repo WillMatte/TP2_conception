@@ -14,15 +14,14 @@ public class AbonneServiceTests
     public void ReadAbonnes_RetourneUneListeAbonnes()
     {
         // Arrange
-        List<Abonne> abonnes = new List<Abonne>() {new Abonne(), new Abonne()};
+        List<Abonne> abonnes = new List<Abonne>() { new Abonne(), new Abonne() };
         Mock<IDatabaseAbonnes> dbMock = new Mock<IDatabaseAbonnes>();
         dbMock.Setup(x => x.ReadAbonnes()).Returns(abonnes);
-        
+
         // Act
         var result = dbMock.Object.ReadAbonnes();
-        
+
         // Assert
         Assert.True(abonnes.SequenceEqual(result));
-
     }
 }
